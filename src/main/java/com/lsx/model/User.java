@@ -1,62 +1,53 @@
 package com.lsx.model;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 
 public class User implements Serializable {
 
     @Id
-    @GeneratedValue
-    private Integer id;
-    private Integer age;
-    private String userName;
-    private String password;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    @Column(unique = true)
+    private String name;
+    private Integer password;
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
+    private List<Role> roles;
 
-
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Integer getAge() {
-        return age;
+    public String getName() {
+        return name;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
+    public Integer getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(Integer password) {
         this.password = password;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", age=" + age +
-                ", userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
-                '}';
+    public List<Role> getRoles() {
+        return roles;
     }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
 }
